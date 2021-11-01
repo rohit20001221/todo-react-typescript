@@ -1,30 +1,17 @@
-import { useStore } from "../context/StoreContex";
 import "../css/AddItem.css";
 import { Todo } from "../interfaces/Todo";
-
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import InputField from "./InputField";
 import { PropsWithoutRef } from "react";
 import { Button } from "@material-ui/core";
-import api from "../api";
+import { useTodo } from "../context/TodoContex";
 
 function AddForm(props: PropsWithoutRef<any>) {
-  const [, dispatch] = useStore();
-
-  const addItem = (payload: Todo) => {
-    dispatch({
-      type: "ADD_ITEM",
-      payload,
-    });
-
-    api
-      .post("/v1/todo", JSON.stringify(payload))
-      .then((result) => console.log(result));
-  };
+  const todo = useTodo();
 
   const onSubmit = (values: Todo, { resetForm }: any) => {
     console.log(values);
-    addItem(values);
+    todo.addItem(values);
     resetForm();
   };
 
@@ -36,6 +23,7 @@ function AddForm(props: PropsWithoutRef<any>) {
           subtitle: "",
           dateCreated: "",
           isCompleted: false,
+          id: 0,
         }}
         onSubmit={onSubmit}
         enableReinitialize={true}
@@ -86,10 +74,6 @@ function AddForm(props: PropsWithoutRef<any>) {
               />
               <div className="errorMessage">
                 <ErrorMessage name="dateCreated" />
-              </div>
-
-              <div style={{ marginTop: 3, marginBottom: 3 }}>
-                <Field name="isCompleted" type="checkbox" />
               </div>
 
               <Button

@@ -3,6 +3,7 @@ export interface Todo {
   subtitle: string;
   isCompleted: boolean;
   dateCreated: string;
+  id: Number | null;
 }
 
 export interface TodoItemProps {

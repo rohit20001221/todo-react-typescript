@@ -6,9 +6,14 @@ export const _getTodos = async () => {
 };
 
 export const _addTodo = async (body: any) => {
-  await api.post("/v1/todo", JSON.stringify(body));
+  const { data } = await api.post("/v1/todo", JSON.stringify(body));
+  return data;
 };
 
-export const _deleteTodo = async (id: Number) => {
+export const _deleteTodo = async (id: String) => {
   await api.delete(`/v1/todo/${id}`);
+};
+
+export const _updateTodo = async (id: String, data: any) => {
+  await api.put(`/v1/todo/${id}`, JSON.stringify(data));
 };

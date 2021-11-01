@@ -4,10 +4,9 @@ import { Todo } from "../interfaces/Todo";
 import TodoItem from "./TodoItem";
 import AddForm from "./AddForm";
 import { useStore } from "../context/StoreContex";
-import api from "../api";
 
 function Home() {
-  const [{ todos }, dispatch] = useStore();
+  const [{ todos }] = useStore();
   const itemdiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,15 +14,6 @@ function Home() {
       itemdiv.current.scrollTop = itemdiv.current?.scrollHeight || 0;
     }
   }, [todos]);
-
-  useEffect(() => {
-    api.get("/v1/todo").then((results) => {
-      dispatch({
-        type: "LOAD_ITEMS",
-        payload: results.data,
-      });
-    });
-  }, [dispatch]);
 
   return (
     <div className="home">

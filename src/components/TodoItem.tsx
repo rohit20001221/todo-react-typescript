@@ -1,8 +1,11 @@
 import "../css/TodoItem.css";
 import { motion, Variants } from "framer-motion";
 import { Todo, TodoItemProps } from "../interfaces/Todo";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper, Typography, IconButton, Checkbox } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { useTodo } from "../context/TodoContex";
+import { useState } from "react";
 
 function TodoItem(props: TodoItemProps) {
   const item: Todo = props.item;
@@ -11,6 +14,10 @@ function TodoItem(props: TodoItemProps) {
     hidden: { opacity: 0 },
     visible: { opacity: 1, y: [10, 0] },
   };
+
+  const [completed, setCompleted] = useState(item.isCompleted);
+
+  const todo = useTodo();
 
   return (
     <motion.div initial="hidden" animate="visible" variants={variants}>
@@ -26,6 +33,19 @@ function TodoItem(props: TodoItemProps) {
           {item.isCompleted ? (
             <CheckCircleIcon className="completedIcon" />
           ) : null}
+          <IconButton onClick={() => todo.deleteItem(item.id)}>
+            <DeleteIcon />
+          </IconButton>
+          <Checkbox
+            checked={completed}
+            onChange={(e) => {
+              setCompleted(e.target.checked);
+              todo.updateItem(item.id, {
+                ...item,
+                isCompleted: e.target.checked,
+              });
+            }}
+          />
         </div>
       </Paper>
     </motion.div>
