@@ -20,6 +20,17 @@ export const reducer = (
         return item.id !== action.payload;
       });
       return { ...state, todos };
+    case "UPDATE_ITEM":
+      todos = state.todos;
+
+      for (let i = 0; i < todos.length; i++) {
+        if (todos[i].id === action.payload.id) {
+          todos[i] = action.payload;
+          break;
+        }
+      }
+
+      return { ...state, todos };
     default:
       return state;
   }

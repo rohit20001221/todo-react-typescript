@@ -27,6 +27,10 @@ export const TodoProvider = ({ children }: PropsWithChildren<any>) => {
 
   const updateItem = async (id: String, payload: any) => {
     await _updateTodo(id, payload);
+    dispatch({
+      type: "UPDATE_ITEM",
+      payload,
+    });
   };
 
   useEffect(() => {
@@ -36,6 +40,8 @@ export const TodoProvider = ({ children }: PropsWithChildren<any>) => {
         payload: result,
       });
     });
+
+    // eslint-disable-next-line
   }, []);
 
   return (

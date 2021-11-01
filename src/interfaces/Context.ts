@@ -9,5 +9,5 @@ export interface StoreProps {
 
 export interface ActionType {
   type: string;
-  payload: Array<any>;
+  payload: Array<any> | any;
 }
