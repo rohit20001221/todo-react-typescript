@@ -1,0 +1,26 @@
+.home {
+  padding: 10px;
+}
+
+.home__todoItems {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  padding: 10px;
+  height: 400px;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.home__todoForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__todoItems::-webkit-scrollbar {
+  width: 0px;
+}

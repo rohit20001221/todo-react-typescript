@@ -1,0 +1,16 @@
+.addItem {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.addItem__input {
+  flex: 1;
+  margin-right: 5px;
+  padding: 5px;
+}
+
+.errorMessage {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: red;
+}

@@ -1,0 +1,28 @@
+.todoItem {
+  background-color: rgb(148, 203, 221) !important;
+  padding: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  display: flex;
+}
+
+.todoItem__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-weight: 400;
+}
+
+.todoItem__meta {
+  padding: 1px;
+  font-size: small;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: column;
+}
+
+.completedIcon {
+  color: green;
+  flex: 1;
+}
