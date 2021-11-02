@@ -13,11 +13,13 @@ export const _addTodo = async (body: any) => {
 };
 
 export const _deleteTodo = async (id: String) => {
-  await api.delete(`/v1/todo/${id}`);
+  const { data } = await api.delete(`/v1/todo/${id}`);
+  return data;
 };
 
-export const _updateTodo = async (id: String, data: any) => {
-  await api.put(`/v1/todo/${id}`, JSON.stringify(data));
+export const _updateTodo = async (id: String, update: any) => {
+  const { data } = await api.put(`/v1/todo/${id}`, JSON.stringify(update));
+  return data;
 };
 
 export const useGetTodos = () => useQuery("get-todo", _getTodos);

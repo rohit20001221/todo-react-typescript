@@ -124,12 +124,14 @@ it("should throw error while update a todo item", async () => {
 });
 
 it("should successfully create a todo item", async () => {
-  jest.spyOn(api, "delete").mockImplementation(async (data) => {
-    return { data };
+  jest.spyOn(api, "delete").mockImplementation(async (url) => {
+    const id = url.split("/")[url.split("/").length - 1];
+    return { data: { [`id:${id}`]: "deleted" } };
   });
 
-  await _deleteTodo("2");
+  const data = await _deleteTodo("2");
   expect(api.delete).toBeCalledTimes(1);
+  expect(data).toEqual({ "id:2": "deleted" });
 });
 
 it("should throw error while delete a todo item", async () => {
