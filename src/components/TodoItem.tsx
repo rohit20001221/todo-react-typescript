@@ -8,6 +8,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import { useTodo } from "../context/TodoContex";
 import { useState } from "react";
 import { Formik, Field, Form } from "formik";
+import { useDeleteTodo, useUpdateTodo } from "../api/todo";
 
 function TodoItem(props: TodoItemProps) {
   const item: Todo = props.item;
@@ -21,6 +22,9 @@ function TodoItem(props: TodoItemProps) {
   const [editMode, setEditMode] = useState(false);
 
   const todo = useTodo();
+
+  const updateMutate = useUpdateTodo();
+  const deleteMutate = useDeleteTodo();
 
   if (!editMode) {
     return (
@@ -37,13 +41,13 @@ function TodoItem(props: TodoItemProps) {
             {item.isCompleted ? (
               <CheckCircleIcon className="completedIcon" />
             ) : null}
-            <IconButton onClick={() => todo.deleteItem(item.id)}>
+            <IconButton onClick={() => deleteMutate.mutate(item.id)}>
               <DeleteIcon />
             </IconButton>
             <Checkbox
               checked={completed}
               onChange={(e) => {
-                todo.updateItem(item.id, {
+                updateMutate.mutate({
                   ...item,
                   isCompleted: e.target.checked,
                 });

@@ -1,4 +1,6 @@
-import api from "./index";
+import { useMutation, useQuery } from "react-query";
+import { Todo } from "../interfaces/Todo";
+import api, { queryClient } from "./index";
 
 export const _getTodos = async () => {
   const { data } = await api.get("/v1/todo");
@@ -17,3 +19,19 @@ export const _deleteTodo = async (id: String) => {
 export const _updateTodo = async (id: String, data: any) => {
   await api.put(`/v1/todo/${id}`, JSON.stringify(data));
 };
+
+export const useGetTodos = () => useQuery("get-todo", _getTodos);
+export const useAddTodo = () =>
+  useMutation((newTodo: Todo) => _addTodo(newTodo), {
+    onSuccess: () => queryClient.invalidateQueries("get-todo"),
+  });
+
+export const useUpdateTodo = () =>
+  useMutation((todo: Todo) => _updateTodo(String(todo.id), todo), {
+    onSuccess: () => queryClient.invalidateQueries("get-todo"),
+  });
+
+export const useDeleteTodo = () =>
+  useMutation((id: any) => _deleteTodo(id), {
+    onSuccess: () => queryClient.invalidateQueries("get-todo"),
+  });

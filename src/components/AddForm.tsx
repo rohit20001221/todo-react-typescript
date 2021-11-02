@@ -4,14 +4,14 @@ import { Formik, Form, ErrorMessage } from "formik";
 import InputField from "./InputField";
 import { PropsWithoutRef } from "react";
 import { Button } from "@material-ui/core";
-import { useTodo } from "../context/TodoContex";
+import { useAddTodo } from "../api/todo";
 
 function AddForm(props: PropsWithoutRef<any>) {
-  const todo = useTodo();
-
+  const mutation = useAddTodo();
   const onSubmit = (values: Todo, { resetForm }: any) => {
     console.log(values);
-    todo.addItem(values);
+
+    mutation.mutate(values);
     resetForm();
   };
 
