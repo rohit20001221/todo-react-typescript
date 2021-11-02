@@ -5,7 +5,6 @@ import { Paper, Typography, IconButton, Checkbox } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
-import { useTodo } from "../context/TodoContex";
 import { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { useDeleteTodo, useUpdateTodo } from "../api/todo";
@@ -20,8 +19,6 @@ function TodoItem(props: TodoItemProps) {
 
   const [completed, setCompleted] = useState(item.isCompleted);
   const [editMode, setEditMode] = useState(false);
-
-  const todo = useTodo();
 
   const updateMutate = useUpdateTodo();
   const deleteMutate = useDeleteTodo();
@@ -74,7 +71,7 @@ function TodoItem(props: TodoItemProps) {
         ...item,
       }}
       onSubmit={(values) => {
-        todo.updateItem(item.id, values);
+        updateMutate.mutate(values);
         setCompleted(values.isCompleted);
         setEditMode((val) => !val);
       }}
